@@ -18,9 +18,8 @@ function showTable() {
     connection.query("SELECT * FROM products", function (err, results) {
         if (err) throw err;
         console.log("\n WELCOME TO BAMAZON");
-        let t = new Table;
         results.forEach(products => {
-            console.log(`${products.itemId}  ${products.itemName}  ${price}  ${stock}  ${departmentName}`)
+            console.log(`${products.itemId}  ${products.itemName}  ${products.price}  ${products.stock}  ${products.departmentName}`)
         })
         inquirer.prompt([{
             type: "input",
