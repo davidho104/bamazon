@@ -5,7 +5,7 @@ const connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "",
+    password: "theman",
     database: "bamazon"
 });
 
@@ -15,11 +15,11 @@ connection.connect(function (err) {
 })
 
 function showTable() {
-    connection.query("SELECT * FROM products", function (err, results) {
+    connection.query("SELECT * FROM products", function (err, res) {
         if (err) throw err;
         console.log("\n WELCOME TO BAMAZON");
-        results.forEach(products => {
-            console.log(`${products.itemId}  ${products.itemName}  ${products.price}  ${products.stock}  ${products.departmentName}`)
+        res.forEach(products => {
+            console.log(`${products.itemId} ${products.itemName}  |  $${products.price}  |  ${products.stock} Left  |  ${products.departmentName}`)
         })
         inquirer.prompt([{
             type: "input",
@@ -46,17 +46,18 @@ function showTable() {
                 }
             }
         }]).then(function (answers) {
-            connection.query("SELECT * FROM products WHERE itemId = " + answers.itemId, function (err, results) {
+            connection.query("SELECT * FROM products WHERE itemId = " + answers.itemId, function (err, res) {
                 try {
-                    if (results[0].stock < answers.quantity) {
-                        console.log("\n There's not enough stock");
+                    let currentPrice = res[0].price;
+                    if (res[0].stock < answers.quantity) {
+                        console.log("\n Insufficient quantity!");
                         showTable();
                     } else {
-                        connection.query("UPDATE products SET stock = stock - " + answers.quantity + " WHERE itemId = " + answers.itemId, function (err, results) {
+                        connection.query("UPDATE products SET stock = stock - " + answers.quantity + " WHERE itemId = " + answers.itemId, function (err, res) {
                             if (err) {
                                 console.log(err);
                             } else {
-                                console.log("The total is now: $" + results[0].price * answers.quantity);
+                                console.log("The total is now: $" + currentPrice * answers.quantity);
                             }
                             connection.end();
                         });

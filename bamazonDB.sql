@@ -17,6 +17,10 @@ INSERT INTO products (itemName, price, stock, departmentName) VALUES
     ("Samsung Galaxy Note9", 600.00, 45, "Phones"),
     ("MacBook Pro 13-inch", 1300.00, 30, "Laptops"),
     ("MacBook Pro 15-inch", 2000.00, 20, "Laptops"),
-    ("Dell Inspiron 15 7000", 750.00, 40, "Laptops");
+    ("Dell Inspiron 15 7000", 750.00, 40, "Laptops"),
+    ("Tennis Racquet", 50.00, 40, "Sporting Goods"),
+    ("Baseball Bat", 40.00, 40, "Sporting Goods"),
+    ("Wilson Basketball", 30.00, 40, "Sporting Goods"),
+    ("Hockey Club", 60.00, 40, "Sporting Goods");
     
 SELECT * FROM products;
